@@ -1,0 +1,1439 @@
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"Motor.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.motor_start,"ax",%progbits
+  19              		.align	2
+  20              		.global	motor_start
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	motor_start, %function
+  24              	motor_start:
+  25              	.LFB63:
+  26              		.file 1 "ZumoLibrary\\Motor.c"
+   1:ZumoLibrary/Motor.c **** /**
+   2:ZumoLibrary/Motor.c ****  * @file    Motor.c
+   3:ZumoLibrary/Motor.c ****  * @brief   Basic methods for operating motor sensor. For more details, please refer to Motor.h fil
+   4:ZumoLibrary/Motor.c ****  * @details included in Zumo shield
+   5:ZumoLibrary/Motor.c **** */
+   6:ZumoLibrary/Motor.c **** #include "Motor.h"
+   7:ZumoLibrary/Motor.c **** 
+   8:ZumoLibrary/Motor.c **** 
+   9:ZumoLibrary/Motor.c **** /**
+  10:ZumoLibrary/Motor.c **** * @brief    Starting motor sensors
+  11:ZumoLibrary/Motor.c **** * @details  
+  12:ZumoLibrary/Motor.c **** */
+  13:ZumoLibrary/Motor.c **** void motor_start()
+  14:ZumoLibrary/Motor.c **** {
+  27              		.loc 1 14 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 08B5     		push	{r3, lr}
+  32              		.cfi_def_cfa_offset 8
+  33              		.cfi_offset 3, -8
+  34              		.cfi_offset 14, -4
+  15:ZumoLibrary/Motor.c ****     PWM_Start();
+  35              		.loc 1 15 0
+  36 0002 FFF7FEFF 		bl	PWM_Start
+  37              	.LVL0:
+  38 0006 08BD     		pop	{r3, pc}
+  39              		.cfi_endproc
+  40              	.LFE63:
+  41              		.size	motor_start, .-motor_start
+  42              		.section	.text.motor_stop,"ax",%progbits
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 2
+
+
+  43              		.align	2
+  44              		.global	motor_stop
+  45              		.thumb
+  46              		.thumb_func
+  47              		.type	motor_stop, %function
+  48              	motor_stop:
+  49              	.LFB64:
+  16:ZumoLibrary/Motor.c **** }
+  17:ZumoLibrary/Motor.c **** 
+  18:ZumoLibrary/Motor.c **** 
+  19:ZumoLibrary/Motor.c **** /**
+  20:ZumoLibrary/Motor.c **** * @brief    Stopping motor sensors
+  21:ZumoLibrary/Motor.c **** * @details
+  22:ZumoLibrary/Motor.c **** */
+  23:ZumoLibrary/Motor.c **** void motor_stop()
+  24:ZumoLibrary/Motor.c **** {
+  50              		.loc 1 24 0
+  51              		.cfi_startproc
+  52              		@ args = 0, pretend = 0, frame = 0
+  53              		@ frame_needed = 0, uses_anonymous_args = 0
+  54 0000 08B5     		push	{r3, lr}
+  55              		.cfi_def_cfa_offset 8
+  56              		.cfi_offset 3, -8
+  57              		.cfi_offset 14, -4
+  25:ZumoLibrary/Motor.c ****     PWM_Stop();
+  58              		.loc 1 25 0
+  59 0002 FFF7FEFF 		bl	PWM_Stop
+  60              	.LVL1:
+  61 0006 08BD     		pop	{r3, pc}
+  62              		.cfi_endproc
+  63              	.LFE64:
+  64              		.size	motor_stop, .-motor_stop
+  65              		.section	.text.motor_forward,"ax",%progbits
+  66              		.align	2
+  67              		.global	motor_forward
+  68              		.thumb
+  69              		.thumb_func
+  70              		.type	motor_forward, %function
+  71              	motor_forward:
+  72              	.LFB65:
+  26:ZumoLibrary/Motor.c **** }
+  27:ZumoLibrary/Motor.c **** 
+  28:ZumoLibrary/Motor.c **** 
+  29:ZumoLibrary/Motor.c **** /**
+  30:ZumoLibrary/Motor.c **** * @brief    Moving motors forward
+  31:ZumoLibrary/Motor.c **** * @details  giveing same speed to each side of PWM to make motors go forward
+  32:ZumoLibrary/Motor.c **** * @param    uint8 speed : speed value
+  33:ZumoLibrary/Motor.c **** * @param    uint32 delay : delay time
+  34:ZumoLibrary/Motor.c **** */
+  35:ZumoLibrary/Motor.c **** void motor_forward(uint8 speed,uint32 delay)
+  36:ZumoLibrary/Motor.c **** {
+  73              		.loc 1 36 0
+  74              		.cfi_startproc
+  75              		@ args = 0, pretend = 0, frame = 0
+  76              		@ frame_needed = 0, uses_anonymous_args = 0
+  77              	.LVL2:
+  78 0000 38B5     		push	{r3, r4, r5, lr}
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 3
+
+
+  79              		.cfi_def_cfa_offset 16
+  80              		.cfi_offset 3, -16
+  81              		.cfi_offset 4, -12
+  82              		.cfi_offset 5, -8
+  83              		.cfi_offset 14, -4
+  84 0002 0446     		mov	r4, r0
+  85 0004 0D46     		mov	r5, r1
+  37:ZumoLibrary/Motor.c ****     MotorDirLeft_Write(0);      // set LeftMotor forward mode
+  86              		.loc 1 37 0
+  87 0006 0020     		movs	r0, #0
+  88              	.LVL3:
+  89 0008 FFF7FEFF 		bl	MotorDirLeft_Write
+  90              	.LVL4:
+  38:ZumoLibrary/Motor.c ****     MotorDirRight_Write(0);     // set RightMotor forward mode
+  91              		.loc 1 38 0
+  92 000c 0020     		movs	r0, #0
+  93 000e FFF7FEFF 		bl	MotorDirRight_Write
+  94              	.LVL5:
+  39:ZumoLibrary/Motor.c ****     PWM_WriteCompare1(speed); 
+  95              		.loc 1 39 0
+  96 0012 2046     		mov	r0, r4
+  97 0014 FFF7FEFF 		bl	PWM_WriteCompare1
+  98              	.LVL6:
+  40:ZumoLibrary/Motor.c ****     PWM_WriteCompare2(speed); 
+  99              		.loc 1 40 0
+ 100 0018 2046     		mov	r0, r4
+ 101 001a FFF7FEFF 		bl	PWM_WriteCompare2
+ 102              	.LVL7:
+  41:ZumoLibrary/Motor.c ****     CyDelay(delay);
+ 103              		.loc 1 41 0
+ 104 001e 2846     		mov	r0, r5
+ 105 0020 FFF7FEFF 		bl	CyDelay
+ 106              	.LVL8:
+ 107 0024 38BD     		pop	{r3, r4, r5, pc}
+ 108              		.cfi_endproc
+ 109              	.LFE65:
+ 110              		.size	motor_forward, .-motor_forward
+ 111 0026 00BF     		.section	.text.motor_turn_90,"ax",%progbits
+ 112              		.align	2
+ 113              		.global	motor_turn_90
+ 114              		.thumb
+ 115              		.thumb_func
+ 116              		.type	motor_turn_90, %function
+ 117              	motor_turn_90:
+ 118              	.LFB66:
+  42:ZumoLibrary/Motor.c **** }
+  43:ZumoLibrary/Motor.c **** 
+  44:ZumoLibrary/Motor.c **** void motor_turn_90(uint8 speed, uint32 delay){
+ 119              		.loc 1 44 0
+ 120              		.cfi_startproc
+ 121              		@ args = 0, pretend = 0, frame = 0
+ 122              		@ frame_needed = 0, uses_anonymous_args = 0
+ 123              	.LVL9:
+ 124 0000 38B5     		push	{r3, r4, r5, lr}
+ 125              		.cfi_def_cfa_offset 16
+ 126              		.cfi_offset 3, -16
+ 127              		.cfi_offset 4, -12
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 4
+
+
+ 128              		.cfi_offset 5, -8
+ 129              		.cfi_offset 14, -4
+ 130 0002 0446     		mov	r4, r0
+ 131 0004 0D46     		mov	r5, r1
+  45:ZumoLibrary/Motor.c ****     MotorDirLeft_Write(0);      // set LeftMotor forward mode
+ 132              		.loc 1 45 0
+ 133 0006 0020     		movs	r0, #0
+ 134              	.LVL10:
+ 135 0008 FFF7FEFF 		bl	MotorDirLeft_Write
+ 136              	.LVL11:
+  46:ZumoLibrary/Motor.c ****     MotorDirRight_Write(1);     // set RightMotor forward mode
+ 137              		.loc 1 46 0
+ 138 000c 0120     		movs	r0, #1
+ 139 000e FFF7FEFF 		bl	MotorDirRight_Write
+ 140              	.LVL12:
+  47:ZumoLibrary/Motor.c ****     PWM_WriteCompare1(speed); 
+ 141              		.loc 1 47 0
+ 142 0012 2046     		mov	r0, r4
+ 143 0014 FFF7FEFF 		bl	PWM_WriteCompare1
+ 144              	.LVL13:
+  48:ZumoLibrary/Motor.c ****     PWM_WriteCompare2(speed); 
+ 145              		.loc 1 48 0
+ 146 0018 2046     		mov	r0, r4
+ 147 001a FFF7FEFF 		bl	PWM_WriteCompare2
+ 148              	.LVL14:
+  49:ZumoLibrary/Motor.c ****     CyDelay(delay);
+ 149              		.loc 1 49 0
+ 150 001e 2846     		mov	r0, r5
+ 151 0020 FFF7FEFF 		bl	CyDelay
+ 152              	.LVL15:
+ 153 0024 38BD     		pop	{r3, r4, r5, pc}
+ 154              		.cfi_endproc
+ 155              	.LFE66:
+ 156              		.size	motor_turn_90, .-motor_turn_90
+ 157 0026 00BF     		.section	.text.motor_turn,"ax",%progbits
+ 158              		.align	2
+ 159              		.global	motor_turn
+ 160              		.thumb
+ 161              		.thumb_func
+ 162              		.type	motor_turn, %function
+ 163              	motor_turn:
+ 164              	.LFB67:
+  50:ZumoLibrary/Motor.c **** }
+  51:ZumoLibrary/Motor.c **** 
+  52:ZumoLibrary/Motor.c **** /**
+  53:ZumoLibrary/Motor.c **** * @brief    Moving motors to make a turn 
+  54:ZumoLibrary/Motor.c **** * @details  moving left when l_speed < r_speed or moving right when l_speed > r_speed
+  55:ZumoLibrary/Motor.c **** * @param    uint8 l_speed : left motor speed value
+  56:ZumoLibrary/Motor.c **** * @param    uint8 r_speed : right motor speed value
+  57:ZumoLibrary/Motor.c **** * @param    uint32 delay : delay time
+  58:ZumoLibrary/Motor.c **** */
+  59:ZumoLibrary/Motor.c **** void motor_turn(uint8 l_speed, uint8 r_speed, uint32 delay)
+  60:ZumoLibrary/Motor.c **** {
+ 165              		.loc 1 60 0
+ 166              		.cfi_startproc
+ 167              		@ args = 0, pretend = 0, frame = 0
+ 168              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 5
+
+
+ 169              	.LVL16:
+ 170 0000 38B5     		push	{r3, r4, r5, lr}
+ 171              		.cfi_def_cfa_offset 16
+ 172              		.cfi_offset 3, -16
+ 173              		.cfi_offset 4, -12
+ 174              		.cfi_offset 5, -8
+ 175              		.cfi_offset 14, -4
+ 176 0002 0D46     		mov	r5, r1
+ 177 0004 1446     		mov	r4, r2
+  61:ZumoLibrary/Motor.c ****     PWM_WriteCompare1(l_speed); 
+ 178              		.loc 1 61 0
+ 179 0006 FFF7FEFF 		bl	PWM_WriteCompare1
+ 180              	.LVL17:
+  62:ZumoLibrary/Motor.c ****     PWM_WriteCompare2(r_speed); 
+ 181              		.loc 1 62 0
+ 182 000a 2846     		mov	r0, r5
+ 183 000c FFF7FEFF 		bl	PWM_WriteCompare2
+ 184              	.LVL18:
+  63:ZumoLibrary/Motor.c ****     CyDelay(delay);
+ 185              		.loc 1 63 0
+ 186 0010 2046     		mov	r0, r4
+ 187 0012 FFF7FEFF 		bl	CyDelay
+ 188              	.LVL19:
+ 189 0016 38BD     		pop	{r3, r4, r5, pc}
+ 190              		.cfi_endproc
+ 191              	.LFE67:
+ 192              		.size	motor_turn, .-motor_turn
+ 193              		.section	.text.motor_backward,"ax",%progbits
+ 194              		.align	2
+ 195              		.global	motor_backward
+ 196              		.thumb
+ 197              		.thumb_func
+ 198              		.type	motor_backward, %function
+ 199              	motor_backward:
+ 200              	.LFB68:
+  64:ZumoLibrary/Motor.c **** }
+  65:ZumoLibrary/Motor.c **** 
+  66:ZumoLibrary/Motor.c **** 
+  67:ZumoLibrary/Motor.c **** /**
+  68:ZumoLibrary/Motor.c **** * @brief    Moving motors backward
+  69:ZumoLibrary/Motor.c **** * @details  setting backward mode to each motors and gives same speed to each side of PWM
+  70:ZumoLibrary/Motor.c **** * @param    uint8 speed : speed value
+  71:ZumoLibrary/Motor.c **** * @param    uint32 delay : delay time
+  72:ZumoLibrary/Motor.c **** */
+  73:ZumoLibrary/Motor.c **** void motor_backward(uint8 speed,uint32 delay)
+  74:ZumoLibrary/Motor.c **** {
+ 201              		.loc 1 74 0
+ 202              		.cfi_startproc
+ 203              		@ args = 0, pretend = 0, frame = 0
+ 204              		@ frame_needed = 0, uses_anonymous_args = 0
+ 205              	.LVL20:
+ 206 0000 38B5     		push	{r3, r4, r5, lr}
+ 207              		.cfi_def_cfa_offset 16
+ 208              		.cfi_offset 3, -16
+ 209              		.cfi_offset 4, -12
+ 210              		.cfi_offset 5, -8
+ 211              		.cfi_offset 14, -4
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 6
+
+
+ 212 0002 0446     		mov	r4, r0
+ 213 0004 0D46     		mov	r5, r1
+  75:ZumoLibrary/Motor.c ****     MotorDirLeft_Write(1);      // set LeftMotor backward mode
+ 214              		.loc 1 75 0
+ 215 0006 0120     		movs	r0, #1
+ 216              	.LVL21:
+ 217 0008 FFF7FEFF 		bl	MotorDirLeft_Write
+ 218              	.LVL22:
+  76:ZumoLibrary/Motor.c ****     MotorDirRight_Write(1);     // set RightMotor backward mode
+ 219              		.loc 1 76 0
+ 220 000c 0120     		movs	r0, #1
+ 221 000e FFF7FEFF 		bl	MotorDirRight_Write
+ 222              	.LVL23:
+  77:ZumoLibrary/Motor.c ****     PWM_WriteCompare1(speed); 
+ 223              		.loc 1 77 0
+ 224 0012 2046     		mov	r0, r4
+ 225 0014 FFF7FEFF 		bl	PWM_WriteCompare1
+ 226              	.LVL24:
+  78:ZumoLibrary/Motor.c ****     PWM_WriteCompare2(speed); 
+ 227              		.loc 1 78 0
+ 228 0018 2046     		mov	r0, r4
+ 229 001a FFF7FEFF 		bl	PWM_WriteCompare2
+ 230              	.LVL25:
+  79:ZumoLibrary/Motor.c ****     CyDelay(delay);
+ 231              		.loc 1 79 0
+ 232 001e 2846     		mov	r0, r5
+ 233 0020 FFF7FEFF 		bl	CyDelay
+ 234              	.LVL26:
+ 235 0024 38BD     		pop	{r3, r4, r5, pc}
+ 236              		.cfi_endproc
+ 237              	.LFE68:
+ 238              		.size	motor_backward, .-motor_backward
+ 239 0026 00BF     		.text
+ 240              	.Letext0:
+ 241              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.0\\psoc creator\\import\\gnu\\arm\\4.9.
+ 242              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.0\\psoc creator\\import\\gnu\\arm\\4.9.
+ 243              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 244              		.file 5 "Generated_Source\\PSoC5/PWM.h"
+ 245              		.file 6 "Generated_Source\\PSoC5/MotorDirLeft.h"
+ 246              		.file 7 "Generated_Source\\PSoC5/MotorDirRight.h"
+ 247              		.file 8 "Generated_Source\\PSoC5/core_cm3.h"
+ 248              		.file 9 "Generated_Source\\PSoC5/CyLib.h"
+ 249              		.section	.debug_info,"",%progbits
+ 250              	.Ldebug_info0:
+ 251 0000 86030000 		.4byte	0x386
+ 252 0004 0400     		.2byte	0x4
+ 253 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 254 000a 04       		.byte	0x4
+ 255 000b 01       		.uleb128 0x1
+ 256 000c F7000000 		.4byte	.LASF33
+ 257 0010 01       		.byte	0x1
+ 258 0011 DC000000 		.4byte	.LASF34
+ 259 0015 35000000 		.4byte	.LASF35
+ 260 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 261 001d 00000000 		.4byte	0
+ 262 0021 00000000 		.4byte	.Ldebug_line0
+ 263 0025 02       		.uleb128 0x2
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 7
+
+
+ 264 0026 01       		.byte	0x1
+ 265 0027 06       		.byte	0x6
+ 266 0028 69000000 		.4byte	.LASF0
+ 267 002c 02       		.uleb128 0x2
+ 268 002d 01       		.byte	0x1
+ 269 002e 08       		.byte	0x8
+ 270 002f 7B000000 		.4byte	.LASF1
+ 271 0033 02       		.uleb128 0x2
+ 272 0034 02       		.byte	0x2
+ 273 0035 05       		.byte	0x5
+ 274 0036 16020000 		.4byte	.LASF2
+ 275 003a 02       		.uleb128 0x2
+ 276 003b 02       		.byte	0x2
+ 277 003c 07       		.byte	0x7
+ 278 003d 47020000 		.4byte	.LASF3
+ 279 0041 03       		.uleb128 0x3
+ 280 0042 00000000 		.4byte	.LASF9
+ 281 0046 02       		.byte	0x2
+ 282 0047 3F       		.byte	0x3f
+ 283 0048 4C000000 		.4byte	0x4c
+ 284 004c 02       		.uleb128 0x2
+ 285 004d 04       		.byte	0x4
+ 286 004e 05       		.byte	0x5
+ 287 004f 33020000 		.4byte	.LASF4
+ 288 0053 02       		.uleb128 0x2
+ 289 0054 04       		.byte	0x4
+ 290 0055 07       		.byte	0x7
+ 291 0056 89000000 		.4byte	.LASF5
+ 292 005a 02       		.uleb128 0x2
+ 293 005b 08       		.byte	0x8
+ 294 005c 05       		.byte	0x5
+ 295 005d 03020000 		.4byte	.LASF6
+ 296 0061 02       		.uleb128 0x2
+ 297 0062 08       		.byte	0x8
+ 298 0063 07       		.byte	0x7
+ 299 0064 9A010000 		.4byte	.LASF7
+ 300 0068 04       		.uleb128 0x4
+ 301 0069 04       		.byte	0x4
+ 302 006a 05       		.byte	0x5
+ 303 006b 696E7400 		.ascii	"int\000"
+ 304 006f 02       		.uleb128 0x2
+ 305 0070 04       		.byte	0x4
+ 306 0071 07       		.byte	0x7
+ 307 0072 85010000 		.4byte	.LASF8
+ 308 0076 03       		.uleb128 0x3
+ 309 0077 5B000000 		.4byte	.LASF10
+ 310 007b 03       		.byte	0x3
+ 311 007c 2C       		.byte	0x2c
+ 312 007d 41000000 		.4byte	0x41
+ 313 0081 05       		.uleb128 0x5
+ 314 0082 E1010000 		.4byte	.LASF11
+ 315 0086 04       		.byte	0x4
+ 316 0087 9201     		.2byte	0x192
+ 317 0089 2C000000 		.4byte	0x2c
+ 318 008d 05       		.uleb128 0x5
+ 319 008e F0000000 		.4byte	.LASF12
+ 320 0092 04       		.byte	0x4
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 8
+
+
+ 321 0093 9401     		.2byte	0x194
+ 322 0095 53000000 		.4byte	0x53
+ 323 0099 02       		.uleb128 0x2
+ 324 009a 04       		.byte	0x4
+ 325 009b 04       		.byte	0x4
+ 326 009c 63000000 		.4byte	.LASF13
+ 327 00a0 02       		.uleb128 0x2
+ 328 00a1 08       		.byte	0x8
+ 329 00a2 04       		.byte	0x4
+ 330 00a3 CA000000 		.4byte	.LASF14
+ 331 00a7 02       		.uleb128 0x2
+ 332 00a8 01       		.byte	0x1
+ 333 00a9 08       		.byte	0x8
+ 334 00aa 11020000 		.4byte	.LASF15
+ 335 00ae 02       		.uleb128 0x2
+ 336 00af 04       		.byte	0x4
+ 337 00b0 07       		.byte	0x7
+ 338 00b1 FA010000 		.4byte	.LASF16
+ 339 00b5 06       		.uleb128 0x6
+ 340 00b6 B1010000 		.4byte	.LASF17
+ 341 00ba 01       		.byte	0x1
+ 342 00bb 0D       		.byte	0xd
+ 343 00bc 00000000 		.4byte	.LFB63
+ 344 00c0 08000000 		.4byte	.LFE63-.LFB63
+ 345 00c4 01       		.uleb128 0x1
+ 346 00c5 9C       		.byte	0x9c
+ 347 00c6 D4000000 		.4byte	0xd4
+ 348 00ca 07       		.uleb128 0x7
+ 349 00cb 06000000 		.4byte	.LVL0
+ 350 00cf 2A030000 		.4byte	0x32a
+ 351 00d3 00       		.byte	0
+ 352 00d4 06       		.uleb128 0x6
+ 353 00d5 D1000000 		.4byte	.LASF18
+ 354 00d9 01       		.byte	0x1
+ 355 00da 17       		.byte	0x17
+ 356 00db 00000000 		.4byte	.LFB64
+ 357 00df 08000000 		.4byte	.LFE64-.LFB64
+ 358 00e3 01       		.uleb128 0x1
+ 359 00e4 9C       		.byte	0x9c
+ 360 00e5 F3000000 		.4byte	0xf3
+ 361 00e9 07       		.uleb128 0x7
+ 362 00ea 06000000 		.4byte	.LVL1
+ 363 00ee 31030000 		.4byte	0x331
+ 364 00f2 00       		.byte	0
+ 365 00f3 08       		.uleb128 0x8
+ 366 00f4 BC000000 		.4byte	.LASF21
+ 367 00f8 01       		.byte	0x1
+ 368 00f9 23       		.byte	0x23
+ 369 00fa 00000000 		.4byte	.LFB65
+ 370 00fe 26000000 		.4byte	.LFE65-.LFB65
+ 371 0102 01       		.uleb128 0x1
+ 372 0103 9C       		.byte	0x9c
+ 373 0104 85010000 		.4byte	0x185
+ 374 0108 09       		.uleb128 0x9
+ 375 0109 F4010000 		.4byte	.LASF19
+ 376 010d 01       		.byte	0x1
+ 377 010e 23       		.byte	0x23
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 9
+
+
+ 378 010f 81000000 		.4byte	0x81
+ 379 0113 00000000 		.4byte	.LLST0
+ 380 0117 09       		.uleb128 0x9
+ 381 0118 75000000 		.4byte	.LASF20
+ 382 011c 01       		.byte	0x1
+ 383 011d 23       		.byte	0x23
+ 384 011e 8D000000 		.4byte	0x8d
+ 385 0122 21000000 		.4byte	.LLST1
+ 386 0126 0A       		.uleb128 0xa
+ 387 0127 0C000000 		.4byte	.LVL4
+ 388 012b 38030000 		.4byte	0x338
+ 389 012f 39010000 		.4byte	0x139
+ 390 0133 0B       		.uleb128 0xb
+ 391 0134 01       		.uleb128 0x1
+ 392 0135 50       		.byte	0x50
+ 393 0136 01       		.uleb128 0x1
+ 394 0137 30       		.byte	0x30
+ 395 0138 00       		.byte	0
+ 396 0139 0A       		.uleb128 0xa
+ 397 013a 12000000 		.4byte	.LVL5
+ 398 013e 49030000 		.4byte	0x349
+ 399 0142 4C010000 		.4byte	0x14c
+ 400 0146 0B       		.uleb128 0xb
+ 401 0147 01       		.uleb128 0x1
+ 402 0148 50       		.byte	0x50
+ 403 0149 01       		.uleb128 0x1
+ 404 014a 30       		.byte	0x30
+ 405 014b 00       		.byte	0
+ 406 014c 0A       		.uleb128 0xa
+ 407 014d 18000000 		.4byte	.LVL6
+ 408 0151 5A030000 		.4byte	0x35a
+ 409 0155 60010000 		.4byte	0x160
+ 410 0159 0B       		.uleb128 0xb
+ 411 015a 01       		.uleb128 0x1
+ 412 015b 50       		.byte	0x50
+ 413 015c 02       		.uleb128 0x2
+ 414 015d 74       		.byte	0x74
+ 415 015e 00       		.sleb128 0
+ 416 015f 00       		.byte	0
+ 417 0160 0A       		.uleb128 0xa
+ 418 0161 1E000000 		.4byte	.LVL7
+ 419 0165 6B030000 		.4byte	0x36b
+ 420 0169 74010000 		.4byte	0x174
+ 421 016d 0B       		.uleb128 0xb
+ 422 016e 01       		.uleb128 0x1
+ 423 016f 50       		.byte	0x50
+ 424 0170 02       		.uleb128 0x2
+ 425 0171 74       		.byte	0x74
+ 426 0172 00       		.sleb128 0
+ 427 0173 00       		.byte	0
+ 428 0174 0C       		.uleb128 0xc
+ 429 0175 24000000 		.4byte	.LVL8
+ 430 0179 7C030000 		.4byte	0x37c
+ 431 017d 0B       		.uleb128 0xb
+ 432 017e 01       		.uleb128 0x1
+ 433 017f 50       		.byte	0x50
+ 434 0180 02       		.uleb128 0x2
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 10
+
+
+ 435 0181 75       		.byte	0x75
+ 436 0182 00       		.sleb128 0
+ 437 0183 00       		.byte	0
+ 438 0184 00       		.byte	0
+ 439 0185 08       		.uleb128 0x8
+ 440 0186 AE000000 		.4byte	.LASF22
+ 441 018a 01       		.byte	0x1
+ 442 018b 2C       		.byte	0x2c
+ 443 018c 00000000 		.4byte	.LFB66
+ 444 0190 26000000 		.4byte	.LFE66-.LFB66
+ 445 0194 01       		.uleb128 0x1
+ 446 0195 9C       		.byte	0x9c
+ 447 0196 17020000 		.4byte	0x217
+ 448 019a 09       		.uleb128 0x9
+ 449 019b F4010000 		.4byte	.LASF19
+ 450 019f 01       		.byte	0x1
+ 451 01a0 2C       		.byte	0x2c
+ 452 01a1 81000000 		.4byte	0x81
+ 453 01a5 3F000000 		.4byte	.LLST2
+ 454 01a9 09       		.uleb128 0x9
+ 455 01aa 75000000 		.4byte	.LASF20
+ 456 01ae 01       		.byte	0x1
+ 457 01af 2C       		.byte	0x2c
+ 458 01b0 8D000000 		.4byte	0x8d
+ 459 01b4 60000000 		.4byte	.LLST3
+ 460 01b8 0A       		.uleb128 0xa
+ 461 01b9 0C000000 		.4byte	.LVL11
+ 462 01bd 38030000 		.4byte	0x338
+ 463 01c1 CB010000 		.4byte	0x1cb
+ 464 01c5 0B       		.uleb128 0xb
+ 465 01c6 01       		.uleb128 0x1
+ 466 01c7 50       		.byte	0x50
+ 467 01c8 01       		.uleb128 0x1
+ 468 01c9 30       		.byte	0x30
+ 469 01ca 00       		.byte	0
+ 470 01cb 0A       		.uleb128 0xa
+ 471 01cc 12000000 		.4byte	.LVL12
+ 472 01d0 49030000 		.4byte	0x349
+ 473 01d4 DE010000 		.4byte	0x1de
+ 474 01d8 0B       		.uleb128 0xb
+ 475 01d9 01       		.uleb128 0x1
+ 476 01da 50       		.byte	0x50
+ 477 01db 01       		.uleb128 0x1
+ 478 01dc 31       		.byte	0x31
+ 479 01dd 00       		.byte	0
+ 480 01de 0A       		.uleb128 0xa
+ 481 01df 18000000 		.4byte	.LVL13
+ 482 01e3 5A030000 		.4byte	0x35a
+ 483 01e7 F2010000 		.4byte	0x1f2
+ 484 01eb 0B       		.uleb128 0xb
+ 485 01ec 01       		.uleb128 0x1
+ 486 01ed 50       		.byte	0x50
+ 487 01ee 02       		.uleb128 0x2
+ 488 01ef 74       		.byte	0x74
+ 489 01f0 00       		.sleb128 0
+ 490 01f1 00       		.byte	0
+ 491 01f2 0A       		.uleb128 0xa
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 11
+
+
+ 492 01f3 1E000000 		.4byte	.LVL14
+ 493 01f7 6B030000 		.4byte	0x36b
+ 494 01fb 06020000 		.4byte	0x206
+ 495 01ff 0B       		.uleb128 0xb
+ 496 0200 01       		.uleb128 0x1
+ 497 0201 50       		.byte	0x50
+ 498 0202 02       		.uleb128 0x2
+ 499 0203 74       		.byte	0x74
+ 500 0204 00       		.sleb128 0
+ 501 0205 00       		.byte	0
+ 502 0206 0C       		.uleb128 0xc
+ 503 0207 24000000 		.4byte	.LVL15
+ 504 020b 7C030000 		.4byte	0x37c
+ 505 020f 0B       		.uleb128 0xb
+ 506 0210 01       		.uleb128 0x1
+ 507 0211 50       		.byte	0x50
+ 508 0212 02       		.uleb128 0x2
+ 509 0213 75       		.byte	0x75
+ 510 0214 00       		.sleb128 0
+ 511 0215 00       		.byte	0
+ 512 0216 00       		.byte	0
+ 513 0217 08       		.uleb128 0x8
+ 514 0218 3C020000 		.4byte	.LASF23
+ 515 021c 01       		.byte	0x1
+ 516 021d 3B       		.byte	0x3b
+ 517 021e 00000000 		.4byte	.LFB67
+ 518 0222 18000000 		.4byte	.LFE67-.LFB67
+ 519 0226 01       		.uleb128 0x1
+ 520 0227 9C       		.byte	0x9c
+ 521 0228 87020000 		.4byte	0x287
+ 522 022c 09       		.uleb128 0x9
+ 523 022d 92010000 		.4byte	.LASF24
+ 524 0231 01       		.byte	0x1
+ 525 0232 3B       		.byte	0x3b
+ 526 0233 81000000 		.4byte	0x81
+ 527 0237 7E000000 		.4byte	.LLST4
+ 528 023b 09       		.uleb128 0x9
+ 529 023c 19000000 		.4byte	.LASF25
+ 530 0240 01       		.byte	0x1
+ 531 0241 3B       		.byte	0x3b
+ 532 0242 81000000 		.4byte	0x81
+ 533 0246 9F000000 		.4byte	.LLST5
+ 534 024a 09       		.uleb128 0x9
+ 535 024b 75000000 		.4byte	.LASF20
+ 536 024f 01       		.byte	0x1
+ 537 0250 3B       		.byte	0x3b
+ 538 0251 8D000000 		.4byte	0x8d
+ 539 0255 C0000000 		.4byte	.LLST6
+ 540 0259 07       		.uleb128 0x7
+ 541 025a 0A000000 		.4byte	.LVL17
+ 542 025e 5A030000 		.4byte	0x35a
+ 543 0262 0A       		.uleb128 0xa
+ 544 0263 10000000 		.4byte	.LVL18
+ 545 0267 6B030000 		.4byte	0x36b
+ 546 026b 76020000 		.4byte	0x276
+ 547 026f 0B       		.uleb128 0xb
+ 548 0270 01       		.uleb128 0x1
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 12
+
+
+ 549 0271 50       		.byte	0x50
+ 550 0272 02       		.uleb128 0x2
+ 551 0273 75       		.byte	0x75
+ 552 0274 00       		.sleb128 0
+ 553 0275 00       		.byte	0
+ 554 0276 0C       		.uleb128 0xc
+ 555 0277 16000000 		.4byte	.LVL19
+ 556 027b 7C030000 		.4byte	0x37c
+ 557 027f 0B       		.uleb128 0xb
+ 558 0280 01       		.uleb128 0x1
+ 559 0281 50       		.byte	0x50
+ 560 0282 02       		.uleb128 0x2
+ 561 0283 74       		.byte	0x74
+ 562 0284 00       		.sleb128 0
+ 563 0285 00       		.byte	0
+ 564 0286 00       		.byte	0
+ 565 0287 08       		.uleb128 0x8
+ 566 0288 0A000000 		.4byte	.LASF26
+ 567 028c 01       		.byte	0x1
+ 568 028d 49       		.byte	0x49
+ 569 028e 00000000 		.4byte	.LFB68
+ 570 0292 26000000 		.4byte	.LFE68-.LFB68
+ 571 0296 01       		.uleb128 0x1
+ 572 0297 9C       		.byte	0x9c
+ 573 0298 19030000 		.4byte	0x319
+ 574 029c 09       		.uleb128 0x9
+ 575 029d F4010000 		.4byte	.LASF19
+ 576 02a1 01       		.byte	0x1
+ 577 02a2 49       		.byte	0x49
+ 578 02a3 81000000 		.4byte	0x81
+ 579 02a7 DE000000 		.4byte	.LLST7
+ 580 02ab 09       		.uleb128 0x9
+ 581 02ac 75000000 		.4byte	.LASF20
+ 582 02b0 01       		.byte	0x1
+ 583 02b1 49       		.byte	0x49
+ 584 02b2 8D000000 		.4byte	0x8d
+ 585 02b6 FF000000 		.4byte	.LLST8
+ 586 02ba 0A       		.uleb128 0xa
+ 587 02bb 0C000000 		.4byte	.LVL22
+ 588 02bf 38030000 		.4byte	0x338
+ 589 02c3 CD020000 		.4byte	0x2cd
+ 590 02c7 0B       		.uleb128 0xb
+ 591 02c8 01       		.uleb128 0x1
+ 592 02c9 50       		.byte	0x50
+ 593 02ca 01       		.uleb128 0x1
+ 594 02cb 31       		.byte	0x31
+ 595 02cc 00       		.byte	0
+ 596 02cd 0A       		.uleb128 0xa
+ 597 02ce 12000000 		.4byte	.LVL23
+ 598 02d2 49030000 		.4byte	0x349
+ 599 02d6 E0020000 		.4byte	0x2e0
+ 600 02da 0B       		.uleb128 0xb
+ 601 02db 01       		.uleb128 0x1
+ 602 02dc 50       		.byte	0x50
+ 603 02dd 01       		.uleb128 0x1
+ 604 02de 31       		.byte	0x31
+ 605 02df 00       		.byte	0
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 13
+
+
+ 606 02e0 0A       		.uleb128 0xa
+ 607 02e1 18000000 		.4byte	.LVL24
+ 608 02e5 5A030000 		.4byte	0x35a
+ 609 02e9 F4020000 		.4byte	0x2f4
+ 610 02ed 0B       		.uleb128 0xb
+ 611 02ee 01       		.uleb128 0x1
+ 612 02ef 50       		.byte	0x50
+ 613 02f0 02       		.uleb128 0x2
+ 614 02f1 74       		.byte	0x74
+ 615 02f2 00       		.sleb128 0
+ 616 02f3 00       		.byte	0
+ 617 02f4 0A       		.uleb128 0xa
+ 618 02f5 1E000000 		.4byte	.LVL25
+ 619 02f9 6B030000 		.4byte	0x36b
+ 620 02fd 08030000 		.4byte	0x308
+ 621 0301 0B       		.uleb128 0xb
+ 622 0302 01       		.uleb128 0x1
+ 623 0303 50       		.byte	0x50
+ 624 0304 02       		.uleb128 0x2
+ 625 0305 74       		.byte	0x74
+ 626 0306 00       		.sleb128 0
+ 627 0307 00       		.byte	0
+ 628 0308 0C       		.uleb128 0xc
+ 629 0309 24000000 		.4byte	.LVL26
+ 630 030d 7C030000 		.4byte	0x37c
+ 631 0311 0B       		.uleb128 0xb
+ 632 0312 01       		.uleb128 0x1
+ 633 0313 50       		.byte	0x50
+ 634 0314 02       		.uleb128 0x2
+ 635 0315 75       		.byte	0x75
+ 636 0316 00       		.sleb128 0
+ 637 0317 00       		.byte	0
+ 638 0318 00       		.byte	0
+ 639 0319 0D       		.uleb128 0xd
+ 640 031a E7010000 		.4byte	.LASF36
+ 641 031e 08       		.byte	0x8
+ 642 031f 9606     		.2byte	0x696
+ 643 0321 25030000 		.4byte	0x325
+ 644 0325 0E       		.uleb128 0xe
+ 645 0326 76000000 		.4byte	0x76
+ 646 032a 0F       		.uleb128 0xf
+ 647 032b 20020000 		.4byte	.LASF27
+ 648 032f 05       		.byte	0x5
+ 649 0330 92       		.byte	0x92
+ 650 0331 0F       		.uleb128 0xf
+ 651 0332 2A020000 		.4byte	.LASF28
+ 652 0336 05       		.byte	0x5
+ 653 0337 93       		.byte	0x93
+ 654 0338 10       		.uleb128 0x10
+ 655 0339 9B000000 		.4byte	.LASF29
+ 656 033d 06       		.byte	0x6
+ 657 033e 26       		.byte	0x26
+ 658 033f 49030000 		.4byte	0x349
+ 659 0343 11       		.uleb128 0x11
+ 660 0344 81000000 		.4byte	0x81
+ 661 0348 00       		.byte	0
+ 662 0349 10       		.uleb128 0x10
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 14
+
+
+ 663 034a 21000000 		.4byte	.LASF30
+ 664 034e 07       		.byte	0x7
+ 665 034f 26       		.byte	0x26
+ 666 0350 5A030000 		.4byte	0x35a
+ 667 0354 11       		.uleb128 0x11
+ 668 0355 81000000 		.4byte	0x81
+ 669 0359 00       		.byte	0
+ 670 035a 10       		.uleb128 0x10
+ 671 035b BD010000 		.4byte	.LASF31
+ 672 035f 05       		.byte	0x5
+ 673 0360 C7       		.byte	0xc7
+ 674 0361 6B030000 		.4byte	0x36b
+ 675 0365 11       		.uleb128 0x11
+ 676 0366 81000000 		.4byte	0x81
+ 677 036a 00       		.byte	0
+ 678 036b 10       		.uleb128 0x10
+ 679 036c CF010000 		.4byte	.LASF32
+ 680 0370 05       		.byte	0x5
+ 681 0371 CA       		.byte	0xca
+ 682 0372 7C030000 		.4byte	0x37c
+ 683 0376 11       		.uleb128 0x11
+ 684 0377 81000000 		.4byte	0x81
+ 685 037b 00       		.byte	0
+ 686 037c 12       		.uleb128 0x12
+ 687 037d 5A020000 		.4byte	.LASF37
+ 688 0381 09       		.byte	0x9
+ 689 0382 76       		.byte	0x76
+ 690 0383 11       		.uleb128 0x11
+ 691 0384 8D000000 		.4byte	0x8d
+ 692 0388 00       		.byte	0
+ 693 0389 00       		.byte	0
+ 694              		.section	.debug_abbrev,"",%progbits
+ 695              	.Ldebug_abbrev0:
+ 696 0000 01       		.uleb128 0x1
+ 697 0001 11       		.uleb128 0x11
+ 698 0002 01       		.byte	0x1
+ 699 0003 25       		.uleb128 0x25
+ 700 0004 0E       		.uleb128 0xe
+ 701 0005 13       		.uleb128 0x13
+ 702 0006 0B       		.uleb128 0xb
+ 703 0007 03       		.uleb128 0x3
+ 704 0008 0E       		.uleb128 0xe
+ 705 0009 1B       		.uleb128 0x1b
+ 706 000a 0E       		.uleb128 0xe
+ 707 000b 55       		.uleb128 0x55
+ 708 000c 17       		.uleb128 0x17
+ 709 000d 11       		.uleb128 0x11
+ 710 000e 01       		.uleb128 0x1
+ 711 000f 10       		.uleb128 0x10
+ 712 0010 17       		.uleb128 0x17
+ 713 0011 00       		.byte	0
+ 714 0012 00       		.byte	0
+ 715 0013 02       		.uleb128 0x2
+ 716 0014 24       		.uleb128 0x24
+ 717 0015 00       		.byte	0
+ 718 0016 0B       		.uleb128 0xb
+ 719 0017 0B       		.uleb128 0xb
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 15
+
+
+ 720 0018 3E       		.uleb128 0x3e
+ 721 0019 0B       		.uleb128 0xb
+ 722 001a 03       		.uleb128 0x3
+ 723 001b 0E       		.uleb128 0xe
+ 724 001c 00       		.byte	0
+ 725 001d 00       		.byte	0
+ 726 001e 03       		.uleb128 0x3
+ 727 001f 16       		.uleb128 0x16
+ 728 0020 00       		.byte	0
+ 729 0021 03       		.uleb128 0x3
+ 730 0022 0E       		.uleb128 0xe
+ 731 0023 3A       		.uleb128 0x3a
+ 732 0024 0B       		.uleb128 0xb
+ 733 0025 3B       		.uleb128 0x3b
+ 734 0026 0B       		.uleb128 0xb
+ 735 0027 49       		.uleb128 0x49
+ 736 0028 13       		.uleb128 0x13
+ 737 0029 00       		.byte	0
+ 738 002a 00       		.byte	0
+ 739 002b 04       		.uleb128 0x4
+ 740 002c 24       		.uleb128 0x24
+ 741 002d 00       		.byte	0
+ 742 002e 0B       		.uleb128 0xb
+ 743 002f 0B       		.uleb128 0xb
+ 744 0030 3E       		.uleb128 0x3e
+ 745 0031 0B       		.uleb128 0xb
+ 746 0032 03       		.uleb128 0x3
+ 747 0033 08       		.uleb128 0x8
+ 748 0034 00       		.byte	0
+ 749 0035 00       		.byte	0
+ 750 0036 05       		.uleb128 0x5
+ 751 0037 16       		.uleb128 0x16
+ 752 0038 00       		.byte	0
+ 753 0039 03       		.uleb128 0x3
+ 754 003a 0E       		.uleb128 0xe
+ 755 003b 3A       		.uleb128 0x3a
+ 756 003c 0B       		.uleb128 0xb
+ 757 003d 3B       		.uleb128 0x3b
+ 758 003e 05       		.uleb128 0x5
+ 759 003f 49       		.uleb128 0x49
+ 760 0040 13       		.uleb128 0x13
+ 761 0041 00       		.byte	0
+ 762 0042 00       		.byte	0
+ 763 0043 06       		.uleb128 0x6
+ 764 0044 2E       		.uleb128 0x2e
+ 765 0045 01       		.byte	0x1
+ 766 0046 3F       		.uleb128 0x3f
+ 767 0047 19       		.uleb128 0x19
+ 768 0048 03       		.uleb128 0x3
+ 769 0049 0E       		.uleb128 0xe
+ 770 004a 3A       		.uleb128 0x3a
+ 771 004b 0B       		.uleb128 0xb
+ 772 004c 3B       		.uleb128 0x3b
+ 773 004d 0B       		.uleb128 0xb
+ 774 004e 11       		.uleb128 0x11
+ 775 004f 01       		.uleb128 0x1
+ 776 0050 12       		.uleb128 0x12
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 16
+
+
+ 777 0051 06       		.uleb128 0x6
+ 778 0052 40       		.uleb128 0x40
+ 779 0053 18       		.uleb128 0x18
+ 780 0054 9742     		.uleb128 0x2117
+ 781 0056 19       		.uleb128 0x19
+ 782 0057 01       		.uleb128 0x1
+ 783 0058 13       		.uleb128 0x13
+ 784 0059 00       		.byte	0
+ 785 005a 00       		.byte	0
+ 786 005b 07       		.uleb128 0x7
+ 787 005c 898201   		.uleb128 0x4109
+ 788 005f 00       		.byte	0
+ 789 0060 11       		.uleb128 0x11
+ 790 0061 01       		.uleb128 0x1
+ 791 0062 31       		.uleb128 0x31
+ 792 0063 13       		.uleb128 0x13
+ 793 0064 00       		.byte	0
+ 794 0065 00       		.byte	0
+ 795 0066 08       		.uleb128 0x8
+ 796 0067 2E       		.uleb128 0x2e
+ 797 0068 01       		.byte	0x1
+ 798 0069 3F       		.uleb128 0x3f
+ 799 006a 19       		.uleb128 0x19
+ 800 006b 03       		.uleb128 0x3
+ 801 006c 0E       		.uleb128 0xe
+ 802 006d 3A       		.uleb128 0x3a
+ 803 006e 0B       		.uleb128 0xb
+ 804 006f 3B       		.uleb128 0x3b
+ 805 0070 0B       		.uleb128 0xb
+ 806 0071 27       		.uleb128 0x27
+ 807 0072 19       		.uleb128 0x19
+ 808 0073 11       		.uleb128 0x11
+ 809 0074 01       		.uleb128 0x1
+ 810 0075 12       		.uleb128 0x12
+ 811 0076 06       		.uleb128 0x6
+ 812 0077 40       		.uleb128 0x40
+ 813 0078 18       		.uleb128 0x18
+ 814 0079 9742     		.uleb128 0x2117
+ 815 007b 19       		.uleb128 0x19
+ 816 007c 01       		.uleb128 0x1
+ 817 007d 13       		.uleb128 0x13
+ 818 007e 00       		.byte	0
+ 819 007f 00       		.byte	0
+ 820 0080 09       		.uleb128 0x9
+ 821 0081 05       		.uleb128 0x5
+ 822 0082 00       		.byte	0
+ 823 0083 03       		.uleb128 0x3
+ 824 0084 0E       		.uleb128 0xe
+ 825 0085 3A       		.uleb128 0x3a
+ 826 0086 0B       		.uleb128 0xb
+ 827 0087 3B       		.uleb128 0x3b
+ 828 0088 0B       		.uleb128 0xb
+ 829 0089 49       		.uleb128 0x49
+ 830 008a 13       		.uleb128 0x13
+ 831 008b 02       		.uleb128 0x2
+ 832 008c 17       		.uleb128 0x17
+ 833 008d 00       		.byte	0
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 17
+
+
+ 834 008e 00       		.byte	0
+ 835 008f 0A       		.uleb128 0xa
+ 836 0090 898201   		.uleb128 0x4109
+ 837 0093 01       		.byte	0x1
+ 838 0094 11       		.uleb128 0x11
+ 839 0095 01       		.uleb128 0x1
+ 840 0096 31       		.uleb128 0x31
+ 841 0097 13       		.uleb128 0x13
+ 842 0098 01       		.uleb128 0x1
+ 843 0099 13       		.uleb128 0x13
+ 844 009a 00       		.byte	0
+ 845 009b 00       		.byte	0
+ 846 009c 0B       		.uleb128 0xb
+ 847 009d 8A8201   		.uleb128 0x410a
+ 848 00a0 00       		.byte	0
+ 849 00a1 02       		.uleb128 0x2
+ 850 00a2 18       		.uleb128 0x18
+ 851 00a3 9142     		.uleb128 0x2111
+ 852 00a5 18       		.uleb128 0x18
+ 853 00a6 00       		.byte	0
+ 854 00a7 00       		.byte	0
+ 855 00a8 0C       		.uleb128 0xc
+ 856 00a9 898201   		.uleb128 0x4109
+ 857 00ac 01       		.byte	0x1
+ 858 00ad 11       		.uleb128 0x11
+ 859 00ae 01       		.uleb128 0x1
+ 860 00af 31       		.uleb128 0x31
+ 861 00b0 13       		.uleb128 0x13
+ 862 00b1 00       		.byte	0
+ 863 00b2 00       		.byte	0
+ 864 00b3 0D       		.uleb128 0xd
+ 865 00b4 34       		.uleb128 0x34
+ 866 00b5 00       		.byte	0
+ 867 00b6 03       		.uleb128 0x3
+ 868 00b7 0E       		.uleb128 0xe
+ 869 00b8 3A       		.uleb128 0x3a
+ 870 00b9 0B       		.uleb128 0xb
+ 871 00ba 3B       		.uleb128 0x3b
+ 872 00bb 05       		.uleb128 0x5
+ 873 00bc 49       		.uleb128 0x49
+ 874 00bd 13       		.uleb128 0x13
+ 875 00be 3F       		.uleb128 0x3f
+ 876 00bf 19       		.uleb128 0x19
+ 877 00c0 3C       		.uleb128 0x3c
+ 878 00c1 19       		.uleb128 0x19
+ 879 00c2 00       		.byte	0
+ 880 00c3 00       		.byte	0
+ 881 00c4 0E       		.uleb128 0xe
+ 882 00c5 35       		.uleb128 0x35
+ 883 00c6 00       		.byte	0
+ 884 00c7 49       		.uleb128 0x49
+ 885 00c8 13       		.uleb128 0x13
+ 886 00c9 00       		.byte	0
+ 887 00ca 00       		.byte	0
+ 888 00cb 0F       		.uleb128 0xf
+ 889 00cc 2E       		.uleb128 0x2e
+ 890 00cd 00       		.byte	0
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 18
+
+
+ 891 00ce 3F       		.uleb128 0x3f
+ 892 00cf 19       		.uleb128 0x19
+ 893 00d0 03       		.uleb128 0x3
+ 894 00d1 0E       		.uleb128 0xe
+ 895 00d2 3A       		.uleb128 0x3a
+ 896 00d3 0B       		.uleb128 0xb
+ 897 00d4 3B       		.uleb128 0x3b
+ 898 00d5 0B       		.uleb128 0xb
+ 899 00d6 27       		.uleb128 0x27
+ 900 00d7 19       		.uleb128 0x19
+ 901 00d8 3C       		.uleb128 0x3c
+ 902 00d9 19       		.uleb128 0x19
+ 903 00da 00       		.byte	0
+ 904 00db 00       		.byte	0
+ 905 00dc 10       		.uleb128 0x10
+ 906 00dd 2E       		.uleb128 0x2e
+ 907 00de 01       		.byte	0x1
+ 908 00df 3F       		.uleb128 0x3f
+ 909 00e0 19       		.uleb128 0x19
+ 910 00e1 03       		.uleb128 0x3
+ 911 00e2 0E       		.uleb128 0xe
+ 912 00e3 3A       		.uleb128 0x3a
+ 913 00e4 0B       		.uleb128 0xb
+ 914 00e5 3B       		.uleb128 0x3b
+ 915 00e6 0B       		.uleb128 0xb
+ 916 00e7 27       		.uleb128 0x27
+ 917 00e8 19       		.uleb128 0x19
+ 918 00e9 3C       		.uleb128 0x3c
+ 919 00ea 19       		.uleb128 0x19
+ 920 00eb 01       		.uleb128 0x1
+ 921 00ec 13       		.uleb128 0x13
+ 922 00ed 00       		.byte	0
+ 923 00ee 00       		.byte	0
+ 924 00ef 11       		.uleb128 0x11
+ 925 00f0 05       		.uleb128 0x5
+ 926 00f1 00       		.byte	0
+ 927 00f2 49       		.uleb128 0x49
+ 928 00f3 13       		.uleb128 0x13
+ 929 00f4 00       		.byte	0
+ 930 00f5 00       		.byte	0
+ 931 00f6 12       		.uleb128 0x12
+ 932 00f7 2E       		.uleb128 0x2e
+ 933 00f8 01       		.byte	0x1
+ 934 00f9 3F       		.uleb128 0x3f
+ 935 00fa 19       		.uleb128 0x19
+ 936 00fb 03       		.uleb128 0x3
+ 937 00fc 0E       		.uleb128 0xe
+ 938 00fd 3A       		.uleb128 0x3a
+ 939 00fe 0B       		.uleb128 0xb
+ 940 00ff 3B       		.uleb128 0x3b
+ 941 0100 0B       		.uleb128 0xb
+ 942 0101 27       		.uleb128 0x27
+ 943 0102 19       		.uleb128 0x19
+ 944 0103 3C       		.uleb128 0x3c
+ 945 0104 19       		.uleb128 0x19
+ 946 0105 00       		.byte	0
+ 947 0106 00       		.byte	0
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 19
+
+
+ 948 0107 00       		.byte	0
+ 949              		.section	.debug_loc,"",%progbits
+ 950              	.Ldebug_loc0:
+ 951              	.LLST0:
+ 952 0000 00000000 		.4byte	.LVL2
+ 953 0004 08000000 		.4byte	.LVL3
+ 954 0008 0100     		.2byte	0x1
+ 955 000a 50       		.byte	0x50
+ 956 000b 08000000 		.4byte	.LVL3
+ 957 000f 26000000 		.4byte	.LFE65
+ 958 0013 0400     		.2byte	0x4
+ 959 0015 F3       		.byte	0xf3
+ 960 0016 01       		.uleb128 0x1
+ 961 0017 50       		.byte	0x50
+ 962 0018 9F       		.byte	0x9f
+ 963 0019 00000000 		.4byte	0
+ 964 001d 00000000 		.4byte	0
+ 965              	.LLST1:
+ 966 0021 00000000 		.4byte	.LVL2
+ 967 0025 0B000000 		.4byte	.LVL4-1
+ 968 0029 0100     		.2byte	0x1
+ 969 002b 51       		.byte	0x51
+ 970 002c 0B000000 		.4byte	.LVL4-1
+ 971 0030 26000000 		.4byte	.LFE65
+ 972 0034 0100     		.2byte	0x1
+ 973 0036 55       		.byte	0x55
+ 974 0037 00000000 		.4byte	0
+ 975 003b 00000000 		.4byte	0
+ 976              	.LLST2:
+ 977 003f 00000000 		.4byte	.LVL9
+ 978 0043 08000000 		.4byte	.LVL10
+ 979 0047 0100     		.2byte	0x1
+ 980 0049 50       		.byte	0x50
+ 981 004a 08000000 		.4byte	.LVL10
+ 982 004e 26000000 		.4byte	.LFE66
+ 983 0052 0400     		.2byte	0x4
+ 984 0054 F3       		.byte	0xf3
+ 985 0055 01       		.uleb128 0x1
+ 986 0056 50       		.byte	0x50
+ 987 0057 9F       		.byte	0x9f
+ 988 0058 00000000 		.4byte	0
+ 989 005c 00000000 		.4byte	0
+ 990              	.LLST3:
+ 991 0060 00000000 		.4byte	.LVL9
+ 992 0064 0B000000 		.4byte	.LVL11-1
+ 993 0068 0100     		.2byte	0x1
+ 994 006a 51       		.byte	0x51
+ 995 006b 0B000000 		.4byte	.LVL11-1
+ 996 006f 26000000 		.4byte	.LFE66
+ 997 0073 0100     		.2byte	0x1
+ 998 0075 55       		.byte	0x55
+ 999 0076 00000000 		.4byte	0
+ 1000 007a 00000000 		.4byte	0
+ 1001              	.LLST4:
+ 1002 007e 00000000 		.4byte	.LVL16
+ 1003 0082 09000000 		.4byte	.LVL17-1
+ 1004 0086 0100     		.2byte	0x1
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 20
+
+
+ 1005 0088 50       		.byte	0x50
+ 1006 0089 09000000 		.4byte	.LVL17-1
+ 1007 008d 18000000 		.4byte	.LFE67
+ 1008 0091 0400     		.2byte	0x4
+ 1009 0093 F3       		.byte	0xf3
+ 1010 0094 01       		.uleb128 0x1
+ 1011 0095 50       		.byte	0x50
+ 1012 0096 9F       		.byte	0x9f
+ 1013 0097 00000000 		.4byte	0
+ 1014 009b 00000000 		.4byte	0
+ 1015              	.LLST5:
+ 1016 009f 00000000 		.4byte	.LVL16
+ 1017 00a3 09000000 		.4byte	.LVL17-1
+ 1018 00a7 0100     		.2byte	0x1
+ 1019 00a9 51       		.byte	0x51
+ 1020 00aa 09000000 		.4byte	.LVL17-1
+ 1021 00ae 18000000 		.4byte	.LFE67
+ 1022 00b2 0400     		.2byte	0x4
+ 1023 00b4 F3       		.byte	0xf3
+ 1024 00b5 01       		.uleb128 0x1
+ 1025 00b6 51       		.byte	0x51
+ 1026 00b7 9F       		.byte	0x9f
+ 1027 00b8 00000000 		.4byte	0
+ 1028 00bc 00000000 		.4byte	0
+ 1029              	.LLST6:
+ 1030 00c0 00000000 		.4byte	.LVL16
+ 1031 00c4 09000000 		.4byte	.LVL17-1
+ 1032 00c8 0100     		.2byte	0x1
+ 1033 00ca 52       		.byte	0x52
+ 1034 00cb 09000000 		.4byte	.LVL17-1
+ 1035 00cf 18000000 		.4byte	.LFE67
+ 1036 00d3 0100     		.2byte	0x1
+ 1037 00d5 54       		.byte	0x54
+ 1038 00d6 00000000 		.4byte	0
+ 1039 00da 00000000 		.4byte	0
+ 1040              	.LLST7:
+ 1041 00de 00000000 		.4byte	.LVL20
+ 1042 00e2 08000000 		.4byte	.LVL21
+ 1043 00e6 0100     		.2byte	0x1
+ 1044 00e8 50       		.byte	0x50
+ 1045 00e9 08000000 		.4byte	.LVL21
+ 1046 00ed 26000000 		.4byte	.LFE68
+ 1047 00f1 0400     		.2byte	0x4
+ 1048 00f3 F3       		.byte	0xf3
+ 1049 00f4 01       		.uleb128 0x1
+ 1050 00f5 50       		.byte	0x50
+ 1051 00f6 9F       		.byte	0x9f
+ 1052 00f7 00000000 		.4byte	0
+ 1053 00fb 00000000 		.4byte	0
+ 1054              	.LLST8:
+ 1055 00ff 00000000 		.4byte	.LVL20
+ 1056 0103 0B000000 		.4byte	.LVL22-1
+ 1057 0107 0100     		.2byte	0x1
+ 1058 0109 51       		.byte	0x51
+ 1059 010a 0B000000 		.4byte	.LVL22-1
+ 1060 010e 26000000 		.4byte	.LFE68
+ 1061 0112 0100     		.2byte	0x1
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 21
+
+
+ 1062 0114 55       		.byte	0x55
+ 1063 0115 00000000 		.4byte	0
+ 1064 0119 00000000 		.4byte	0
+ 1065              		.section	.debug_aranges,"",%progbits
+ 1066 0000 44000000 		.4byte	0x44
+ 1067 0004 0200     		.2byte	0x2
+ 1068 0006 00000000 		.4byte	.Ldebug_info0
+ 1069 000a 04       		.byte	0x4
+ 1070 000b 00       		.byte	0
+ 1071 000c 0000     		.2byte	0
+ 1072 000e 0000     		.2byte	0
+ 1073 0010 00000000 		.4byte	.LFB63
+ 1074 0014 08000000 		.4byte	.LFE63-.LFB63
+ 1075 0018 00000000 		.4byte	.LFB64
+ 1076 001c 08000000 		.4byte	.LFE64-.LFB64
+ 1077 0020 00000000 		.4byte	.LFB65
+ 1078 0024 26000000 		.4byte	.LFE65-.LFB65
+ 1079 0028 00000000 		.4byte	.LFB66
+ 1080 002c 26000000 		.4byte	.LFE66-.LFB66
+ 1081 0030 00000000 		.4byte	.LFB67
+ 1082 0034 18000000 		.4byte	.LFE67-.LFB67
+ 1083 0038 00000000 		.4byte	.LFB68
+ 1084 003c 26000000 		.4byte	.LFE68-.LFB68
+ 1085 0040 00000000 		.4byte	0
+ 1086 0044 00000000 		.4byte	0
+ 1087              		.section	.debug_ranges,"",%progbits
+ 1088              	.Ldebug_ranges0:
+ 1089 0000 00000000 		.4byte	.LFB63
+ 1090 0004 08000000 		.4byte	.LFE63
+ 1091 0008 00000000 		.4byte	.LFB64
+ 1092 000c 08000000 		.4byte	.LFE64
+ 1093 0010 00000000 		.4byte	.LFB65
+ 1094 0014 26000000 		.4byte	.LFE65
+ 1095 0018 00000000 		.4byte	.LFB66
+ 1096 001c 26000000 		.4byte	.LFE66
+ 1097 0020 00000000 		.4byte	.LFB67
+ 1098 0024 18000000 		.4byte	.LFE67
+ 1099 0028 00000000 		.4byte	.LFB68
+ 1100 002c 26000000 		.4byte	.LFE68
+ 1101 0030 00000000 		.4byte	0
+ 1102 0034 00000000 		.4byte	0
+ 1103              		.section	.debug_line,"",%progbits
+ 1104              	.Ldebug_line0:
+ 1105 0000 02020000 		.section	.debug_str,"MS",%progbits,1
+ 1105      02008D01 
+ 1105      00000201 
+ 1105      FB0E0D00 
+ 1105      01010101 
+ 1106              	.LASF9:
+ 1107 0000 5F5F696E 		.ascii	"__int32_t\000"
+ 1107      7433325F 
+ 1107      7400
+ 1108              	.LASF26:
+ 1109 000a 6D6F746F 		.ascii	"motor_backward\000"
+ 1109      725F6261 
+ 1109      636B7761 
+ 1109      726400
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 22
+
+
+ 1110              	.LASF25:
+ 1111 0019 725F7370 		.ascii	"r_speed\000"
+ 1111      65656400 
+ 1112              	.LASF30:
+ 1113 0021 4D6F746F 		.ascii	"MotorDirRight_Write\000"
+ 1113      72446972 
+ 1113      52696768 
+ 1113      745F5772 
+ 1113      69746500 
+ 1114              	.LASF35:
+ 1115 0035 443A5C50 		.ascii	"D:\\Projects\\PSoC\\Zumo01\\ZumoBot.cydsn\000"
+ 1115      726F6A65 
+ 1115      6374735C 
+ 1115      50536F43 
+ 1115      5C5A756D 
+ 1116              	.LASF10:
+ 1117 005b 696E7433 		.ascii	"int32_t\000"
+ 1117      325F7400 
+ 1118              	.LASF13:
+ 1119 0063 666C6F61 		.ascii	"float\000"
+ 1119      7400
+ 1120              	.LASF0:
+ 1121 0069 7369676E 		.ascii	"signed char\000"
+ 1121      65642063 
+ 1121      68617200 
+ 1122              	.LASF20:
+ 1123 0075 64656C61 		.ascii	"delay\000"
+ 1123      7900
+ 1124              	.LASF1:
+ 1125 007b 756E7369 		.ascii	"unsigned char\000"
+ 1125      676E6564 
+ 1125      20636861 
+ 1125      7200
+ 1126              	.LASF5:
+ 1127 0089 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1127      20756E73 
+ 1127      69676E65 
+ 1127      6420696E 
+ 1127      7400
+ 1128              	.LASF29:
+ 1129 009b 4D6F746F 		.ascii	"MotorDirLeft_Write\000"
+ 1129      72446972 
+ 1129      4C656674 
+ 1129      5F577269 
+ 1129      746500
+ 1130              	.LASF22:
+ 1131 00ae 6D6F746F 		.ascii	"motor_turn_90\000"
+ 1131      725F7475 
+ 1131      726E5F39 
+ 1131      3000
+ 1132              	.LASF21:
+ 1133 00bc 6D6F746F 		.ascii	"motor_forward\000"
+ 1133      725F666F 
+ 1133      72776172 
+ 1133      6400
+ 1134              	.LASF14:
+ 1135 00ca 646F7562 		.ascii	"double\000"
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 23
+
+
+ 1135      6C6500
+ 1136              	.LASF18:
+ 1137 00d1 6D6F746F 		.ascii	"motor_stop\000"
+ 1137      725F7374 
+ 1137      6F7000
+ 1138              	.LASF34:
+ 1139 00dc 5A756D6F 		.ascii	"ZumoLibrary\\Motor.c\000"
+ 1139      4C696272 
+ 1139      6172795C 
+ 1139      4D6F746F 
+ 1139      722E6300 
+ 1140              	.LASF12:
+ 1141 00f0 75696E74 		.ascii	"uint32\000"
+ 1141      333200
+ 1142              	.LASF33:
+ 1143 00f7 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 1143      4320342E 
+ 1143      392E3320 
+ 1143      32303135 
+ 1143      30333033 
+ 1144 012a 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m3 -mthumb -g -O"
+ 1144      20726576 
+ 1144      6973696F 
+ 1144      6E203232 
+ 1144      31323230 
+ 1145 015d 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1145      66756E63 
+ 1145      74696F6E 
+ 1145      2D736563 
+ 1145      74696F6E 
+ 1146              	.LASF8:
+ 1147 0185 756E7369 		.ascii	"unsigned int\000"
+ 1147      676E6564 
+ 1147      20696E74 
+ 1147      00
+ 1148              	.LASF24:
+ 1149 0192 6C5F7370 		.ascii	"l_speed\000"
+ 1149      65656400 
+ 1150              	.LASF7:
+ 1151 019a 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1151      206C6F6E 
+ 1151      6720756E 
+ 1151      7369676E 
+ 1151      65642069 
+ 1152              	.LASF17:
+ 1153 01b1 6D6F746F 		.ascii	"motor_start\000"
+ 1153      725F7374 
+ 1153      61727400 
+ 1154              	.LASF31:
+ 1155 01bd 50574D5F 		.ascii	"PWM_WriteCompare1\000"
+ 1155      57726974 
+ 1155      65436F6D 
+ 1155      70617265 
+ 1155      3100
+ 1156              	.LASF32:
+ 1157 01cf 50574D5F 		.ascii	"PWM_WriteCompare2\000"
+ 1157      57726974 
+ARM GAS  C:\Users\conme\AppData\Local\Temp\ccHlwULm.s 			page 24
+
+
+ 1157      65436F6D 
+ 1157      70617265 
+ 1157      3200
+ 1158              	.LASF11:
+ 1159 01e1 75696E74 		.ascii	"uint8\000"
+ 1159      3800
+ 1160              	.LASF36:
+ 1161 01e7 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1161      52784275 
+ 1161      66666572 
+ 1161      00
+ 1162              	.LASF19:
+ 1163 01f4 73706565 		.ascii	"speed\000"
+ 1163      6400
+ 1164              	.LASF16:
+ 1165 01fa 73697A65 		.ascii	"sizetype\000"
+ 1165      74797065 
+ 1165      00
+ 1166              	.LASF6:
+ 1167 0203 6C6F6E67 		.ascii	"long long int\000"
+ 1167      206C6F6E 
+ 1167      6720696E 
+ 1167      7400
+ 1168              	.LASF15:
+ 1169 0211 63686172 		.ascii	"char\000"
+ 1169      00
+ 1170              	.LASF2:
+ 1171 0216 73686F72 		.ascii	"short int\000"
+ 1171      7420696E 
+ 1171      7400
+ 1172              	.LASF27:
+ 1173 0220 50574D5F 		.ascii	"PWM_Start\000"
+ 1173      53746172 
+ 1173      7400
+ 1174              	.LASF28:
+ 1175 022a 50574D5F 		.ascii	"PWM_Stop\000"
+ 1175      53746F70 
+ 1175      00
+ 1176              	.LASF4:
+ 1177 0233 6C6F6E67 		.ascii	"long int\000"
+ 1177      20696E74 
+ 1177      00
+ 1178              	.LASF23:
+ 1179 023c 6D6F746F 		.ascii	"motor_turn\000"
+ 1179      725F7475 
+ 1179      726E00
+ 1180              	.LASF3:
+ 1181 0247 73686F72 		.ascii	"short unsigned int\000"
+ 1181      7420756E 
+ 1181      7369676E 
+ 1181      65642069 
+ 1181      6E7400
+ 1182              	.LASF37:
+ 1183 025a 43794465 		.ascii	"CyDelay\000"
+ 1183      6C617900 
+ 1184              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br
