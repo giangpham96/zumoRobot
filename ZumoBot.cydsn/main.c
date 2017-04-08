@@ -42,7 +42,7 @@
 #include "Ambient.h"
 #include "Beep.h"
 
-int P=0,I=0,D=0,p_err=0,Kp=100,Ki=0,Kd=30,count_zero=0;
+int P=0,I=0,D=0,p_err=0,Kp=100,Ki=0,Kd=50,count_zero=0,counter_ADC=0;
 
 
 int rread(void);
@@ -110,21 +110,42 @@ int main(){
     UART_1_Start();
     sensor_isr_StartEx(sensor_isr_handler);
     CyDelay(5000);
-    reflectance_start();
+    reflectance_start();     
+    int16 adcresult =0;
+    float volts = 0.0;
 
     IR_led_Write(1);
     for(;;)
     {
+        counter_ADC++;
+        if(counter_ADC==10000){            
+            ADC_Battery_Start();   
+            ADC_Battery_StartConvert();
+            if(ADC_Battery_IsEndConversion(ADC_Battery_WAIT_FOR_RESULT)) {   // wait for get ADC converted value
+                adcresult = ADC_Battery_GetResult16();
+                volts = 1.5*ADC_Battery_CountsTo_Volts(adcresult);                  // convert value to Volts
+            
+                printf("%d %f\r\n",adcresult, volts);
+                if(volts<4.0){
+                    motor_stop();
+                    return 0;
+                }
+            }
+            counter_ADC=0;
+            ADC_Battery_StopConvert();
+            ADC_Battery_Stop();
+        }
         reflectance_read(&ref);
-        printf("%d %d %d %d \r\n", ref.l3, ref.l1, ref.r1, ref.r3);       //print out each period of reflectance sensors
-        reflectance_digital(&dig);      //print out 0 or 1 according to results of reflectance period
+        reflectance_digital(&dig); 
+        /*printf("%d %d %d %d \r\n", ref.l3, ref.l1, ref.r1, ref.r3);       //print out each period of reflectance sensors
+             //print out 0 or 1 according to results of reflectance period
         printf("%d %d %d %d \r\n", dig.l3, dig.l1, dig.r1, dig.r3);        //print out 0 or 1 according to results of reflectance period
-        
+        */
         int err = calError(dig.l3, dig.l1, dig.r1, dig.r3);
         int motorSpeed = calPID(err);
         
-        int rightMotorSpeed = 210 - motorSpeed;
-        int leftMotorSpeed = 210 + motorSpeed;
+        int rightMotorSpeed = 235 - motorSpeed;
+        int leftMotorSpeed = 235 + motorSpeed;
         
         if(err==9){
            rightMotorSpeed = 255;
@@ -142,13 +163,16 @@ int main(){
         
         motor_turn(leftMotorSpeed,rightMotorSpeed,0);
         
-        if(count_zero>150)
+        if(count_zero>1000){
             motor_stop();
+            return 0;
+        }
         else
             motor_start();
         
         CyDelay(1);
     }
+    return 0;
 }
 
 /*
