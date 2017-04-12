@@ -42,12 +42,13 @@
 #include "Ambient.h"
 #include "Beep.h"
 
-int P=0,I=0,D=0,p_err=0,Kp=100,Ki=0,Kd=50,count_zero=0,counter_ADC=0;
+int P=0,I=0,D=0,p_err=0,Kp=100,Ki=0,Kd=50,count_zero=0,counter_ADC=0,prev_state;
 
 
 int rread(void);
 int calError(int,int,int,int);
 int calPID(int);
+uint8 button;
 
 /**
  * @file    main.c
@@ -69,7 +70,7 @@ int calPID(int);
 
     //BatteryLed_Write(1); // Switch led on 
     BatteryLed_Write(0); // Switch led off 
-    //uint8 button;
+    uint8 button;
     //button = SW1_Read(); // read SW1 on pSoC board
 
     for(;;)
@@ -104,6 +105,7 @@ int main()
 //*/
 
 int main(){
+    #if 0
     struct sensors_ ref;
     struct sensors_ dig;
     CyGlobalIntEnable; 
@@ -117,6 +119,8 @@ int main(){
     IR_led_Write(1);
     for(;;)
     {
+        button = SW1_Read();
+        printf("button %d\n",button);
         counter_ADC++;
         if(counter_ADC==10000){            
             ADC_Battery_Start();   
@@ -172,6 +176,113 @@ int main(){
         
         CyDelay(1);
     }
+    #endif
+    #if 1
+        struct sensors_ ref;
+    struct sensors_ dig;
+    CyGlobalIntEnable; 
+    UART_1_Start();
+    sensor_isr_StartEx(sensor_isr_handler);
+    reflectance_start();     
+    int16 adcresult =0;
+    float volts = 0.0;
+    
+    int stateCounter=0;
+    int prev_line_state=0;
+    
+    IR_led_Write(1);
+    uint8 button = SW1_Read();
+    while (button == 1) {
+        button = SW1_Read();
+    }
+    button = 1;
+    
+    motor_start();
+    do {
+        reflectance_read(&ref);
+        reflectance_digital(&dig);
+        motor_forward(50,0);
+        printf("l3 %d r3 %d\n",dig.l3,dig.r3);
+        CyDelay(100);
+    } while(dig.l3==1&&dig.r3==1);
+    motor_stop();
+    
+    while (button == 1) {
+        button = SW1_Read();
+    }
+    for(;;)
+    {
+        counter_ADC++;
+        if(counter_ADC==10000){            
+            ADC_Battery_Start();   
+            ADC_Battery_StartConvert();
+            if(ADC_Battery_IsEndConversion(ADC_Battery_WAIT_FOR_RESULT)) {   // wait for get ADC converted value
+                adcresult = ADC_Battery_GetResult16();
+                volts = 1.5*ADC_Battery_CountsTo_Volts(adcresult);                  // convert value to Volts
+            
+                printf("%d %f\r\n",adcresult, volts);
+                if(volts<4.0){
+                    counter_ADC=0;
+                    ADC_Battery_StopConvert();
+                    ADC_Battery_Stop();
+                    motor_stop();
+                    sensor_isr_Stop();
+                    UART_1_Stop();
+                    return 0;
+                }
+            }
+            counter_ADC=0;
+            ADC_Battery_StopConvert();
+            ADC_Battery_Stop();
+        }
+        reflectance_read(&ref);
+        reflectance_digital(&dig); 
+        /*printf("%d %d %d %d \r\n", ref.l3, ref.l1, ref.r1, ref.r3);       //print out each period of reflectance sensors
+             //print out 0 or 1 according to results of reflectance period
+        printf("%d %d %d %d \r\n", dig.l3, dig.l1, dig.r1, dig.r3);        //print out 0 or 1 according to results of reflectance period
+        */
+        
+        if(dig.l1==0&&dig.r1==0){
+            motor_turn(255,255,0);
+        }
+        if(dig.l1==0&&dig.r1==1){
+            motor_turn(85,255,0);     
+            prev_state=-1;
+        }
+        if(dig.l1==1&&dig.r1==0){
+            motor_turn(255,85,0);     
+            prev_state=1;        
+        }
+        
+        if(dig.l1==1&&dig.r1==1){
+            if(prev_state==-1)
+                motor_turn(0,255,0);
+            if(prev_state==1)
+                motor_turn(255,0,0);
+            count_zero++;
+        }else{
+            count_zero=0;
+        }
+       
+        if(dig.l3==0&&dig.r3==0&&dig.l1==0&&dig.r1==0&&prev_line_state==0){
+            stateCounter++;
+            prev_line_state=1;
+            Beep(100, 200);
+        }else if(dig.l3==0&&dig.r3==0&&dig.l1==0&&dig.r1==0&&prev_line_state==1){
+        }else{
+            prev_line_state=0;
+        }
+        if(count_zero>1000||stateCounter==3){
+            motor_stop();
+            return 0;
+        }
+        else
+            motor_start();
+        
+        
+        CyDelay(1);
+    }
+    #endif
     return 0;
 }
 
